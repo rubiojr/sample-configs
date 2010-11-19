@@ -9,3 +9,6 @@ IPV6INIT=no
 PEERDNS=no
 BRIDGE=br0
 PROMISC=yes
+# Jumbo Frames
+MTU=9000
+
