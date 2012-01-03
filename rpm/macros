@@ -1,0 +1,20 @@
+%_signature gpg
+
+#
+# FrameOS
+#
+%_gpg_name rubiojr@frameos.org
+%vendor FrameOS Linux 
+%dist .rbel
+%_source_filedigest_algorithm md5
+%_binary_filedigest_algorithm md5
+%packager Sergio Rubio <rubiojr@frameos.org>
+
+%_topdir      %(echo $HOME)/rpmbuild
+%_smp_mflags  -j3
+%__make         /usr/bin/make -j 2
+%__arch_install_post   /usr/lib/rpm/check-rpaths   /usr/lib/rpm/check-buildroot
+# do not repackage jars
+%__jar_repack %{nil}
+# ENV var substitution example
+%my_binaries_url http://hudson/%{getenv:ABI_BRANCH}/premium/
