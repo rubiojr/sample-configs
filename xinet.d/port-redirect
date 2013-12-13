@@ -1,0 +1,14 @@
+# the port or service name in /etc/services
+service foo
+{
+flags = IPv4
+# required when foo not available in /etc/services
+type = UNLISTED
+socket_type = stream
+wait = no
+user = root
+# source port
+port = 58272
+# target IP and host
+redirect = 10.0.3.11 58272
+}
