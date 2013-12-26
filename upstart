@@ -1,0 +1,10 @@
+# An example upstart script for ustate
+description "My Service"
+
+start on started network
+stop on stopped network
+stop on starting shutdown
+
+respawn
+
+exec /usr/local/bin/daemon /etc/config
