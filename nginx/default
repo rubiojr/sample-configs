@@ -1,0 +1,40 @@
+ 
+server {
+	### server port and name ###
+        listen          1.2.3.4:445 ssl;
+        server_name     osapi.bvox.net;
+ 
+	### SSL log files ###
+        access_log      /var/log/nginx/access.log;
+        error_log       /var/log/nginx/error.log;
+ 
+	### SSL cert files ###
+        ssl_certificate      /etc/nginx/ssl/cert.pem;
+        ssl_certificate_key  /etc/nginx/ssl/cert.pem;
+	### Add SSL specific settings here ###
+        keepalive_timeout    60;
+ 
+	###  Limiting Ciphers ########################
+        # Uncomment as per your setup
+	#ssl_ciphers HIGH:!ADH;
+        #ssl_perfer_server_ciphers on;
+        #ssl_protocols SSLv3;
+        ##############################################
+	### We want full access to SSL via backend ###
+     	location / {
+	        proxy_pass  http://127.0.0.1:8084;
+		### force timeouts if one of backend is died ##
+        	proxy_next_upstream error timeout invalid_header http_500 http_502 http_503;
+ 
+		### Set headers ####
+        	proxy_set_header Host $host;
+        	proxy_set_header X-Real-IP $remote_addr;
+	        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+ 
+		### Most PHP, Python, Rails, Java App can use this header ###
+        	proxy_set_header X-Forwarded-Proto https;
+ 
+		### By default we don't want to redirect it ####
+	        proxy_redirect     off;
+      }
+}
