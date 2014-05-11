@@ -1,0 +1,36 @@
+! http://www.chrisamiller.com/blog/posts/remapping-your-macbooks-keyboard-in-ubuntu-1204 
+! clean most of the modifiers
+clear control
+clear mod4
+clear mod1
+clear lock
+
+! -----------------
+! left side
+! ----------------
+! keycode 64 is the left alt key
+keycode 64 = Super_L
+! key code 133 is the left command key
+keycode 133 = Alt_L Meta_L
+
+! ------------------
+! right side
+! -------------------
+! key code 134 is the right command key
+keycode 134 = Alt_R Meta_R
+
+! keycode 108 is the right alt key
+! To map it to Right Control:
+!keycode 108 = Control_R
+! To map it to right click:
+! may need to run `xkbset m` after this
+keycode 108 = Pointer_Button3
+
+! The caps lock
+keycode 66 = Alt_L Meta_L
+
+add mod4 = Super_L
+add mod1 = Alt_L Meta_L
+add mod1 = Alt_R Meta_R
+add control = Control_L
+add control = Control_R
