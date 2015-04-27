@@ -1,0 +1,14 @@
+allow-hotplug wlan1
+iface wlan1 inet dhcp
+    wpa-ssid <ssid>
+    wpa-psk <secret>
+    # or alternatively
+    #wpa-roam /etc/wpa_supplicant/wpa_supplicant.conf
+
+# hostapd, needs dhcpd (dnsmasq)
+allow-hotplug wlan0
+iface wlan0 inet static
+  address 1.2.3.4
+  netmask 255.255.255.0
+  post-up /usr/sbin/hostapd -B -P /var/run/hostapd.pid /etc/hostapd.conf
+  post-down pkill -9 -f hostapd.conf
