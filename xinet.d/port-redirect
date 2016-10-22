@@ -7,6 +7,8 @@ type = UNLISTED
 socket_type = stream
 wait = no
 user = root
+# optional binds to 0.0.0.0 otherwise
+bind = 1.2.3.4
 # source port
 port = 58272
 # target IP and host

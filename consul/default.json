@@ -1,0 +1,8 @@
+{ "skip_leave_on_interrupt": true,
+  "disable_remote_exec": true,
+  "disable_anonymous_signature": true,
+  "disable_update_check": true,
+  "encrypt": "secret",
+  "data_dir": "/var/lib/consul/",
+  "retry_join": ["consul1.server", "consul2.server"]
+}
