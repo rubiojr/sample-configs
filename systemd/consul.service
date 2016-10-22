@@ -1,0 +1,35 @@
+[Unit]
+Description=Consul
+After=network-online.target
+Wants=network-online.target systemd-networkd-wait-online.service
+
+[Service]
+Restart=on-failure
+PermissionsStartOnly=true
+User=rubiojr
+Group=rubiojr
+ExecStartPre=/usr/bin/bash -c "/usr/bin/systemctl set-environment CONSUL_IP=$(ip route get 1 | awk '{print $NF;exit}')"
+ExecStart=/usr/local/bin/consul agent -bind $CONSUL_IP -config-dir /etc/consul
+ExecReload=/bin/kill -USR1 $MAINPID
+MemoryMax=100M
+
+;LimitNOFILE=1048576
+;LimitNPROC=64
+
+PrivateTmp=true
+; Use a minimal /dev
+PrivateDevices=true
+; Hide /home, /root, and /run/user. Nobody will steal your SSH-keys.
+ProtectHome=true
+; Make /usr, /boot, /etc and possibly some more folders read-only.
+ProtectSystem=full
+;   This merely retains r/w access rights, it does not add any new. Must still be writable on the host!
+;ReadWritePaths=/foo /bar
+;ReadOnlyPaths=/bar /bar
+
+;CapabilityBoundingSet=CAP_NET_BIND_SERVICE
+;AmbientCapabilities=CAP_NET_BIND_SERVICE
+;NoNewPrivileges=true
+
+[Install]
+WantedBy=multi-user.target
